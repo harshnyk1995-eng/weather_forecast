@@ -1,4 +1,4 @@
-#Weather Forecast App (Rails)
+Weather Forecast App (Rails)
 
 A Ruby on Rails application that allows users to fetch real-time weather forecasts for any location. The app integrates with OpenWeather API and uses Geocoder to convert addresses or ZIP codes into geographic coordinates.
 
@@ -40,11 +40,7 @@ Add your OpenWeather API key in credentials.yml.enc:
 
 openweather:
   api_key: YOUR_API_KEY
-
-
+  
 Run migrations (if any) and start the Rails server:
-
 rails server
-
-
 Navigate to http://localhost:3000, enter a city or ZIP code, and view the forecast.
