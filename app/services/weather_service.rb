@@ -1,16 +1,15 @@
 class WeatherService
-    
   def self.call(latitude, longitude)
     conn = Faraday.new("https://api.openweathermap.org") do |f|
       f.request :json # encode req bodies as JSON and automatically set the Content-Type header
       f.request :retry # retry transient failures
       f.response :json # decode response bodies as JSON
-    end    
-    response = conn.get('/data/2.5/weather', {
+    end
+    response = conn.get("/data/2.5/weather", {
       appid: Rails.application.credentials.openweather_api_key,
       lat: latitude,
       lon: longitude,
-      units: "metric",
+      units: "metric"
     })
     body = response.body
     body or raise IOError.new "OpenWeather response body failed"
@@ -30,5 +29,4 @@ class WeatherService
     weather.description = body["weather"][0]["description"]
     weather
   end
-    
 end

@@ -1,5 +1,5 @@
 class GeocodeService
-	require "ostruct"
+  require "ostruct"
   def self.call(address)
     results = Geocoder.search(address)
     raise IOError, "Geocoder error or empty response" if results.blank?
