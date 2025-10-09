@@ -6,9 +6,9 @@ class WeatherServiceTest < ActiveSupport::TestCase
       stub_request(:get, /api.openweathermap.org/).to_return(
         body: {
           "main" => { "temp" => 25, "temp_max" => 30, "temp_min" => 20 },
-          "weather" => [{ "description" => "clear sky" }]
+          "weather" => [ { "description" => "clear sky" } ]
         }.to_json,
-        headers: { 'Content-Type' => 'application/json' }
+        headers: { "Content-Type" => "application/json" }
       )
     end
 
