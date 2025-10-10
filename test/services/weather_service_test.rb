@@ -1,4 +1,5 @@
 require "test_helper"
+require "ostruct"
 
 class WeatherServiceTest < ActiveSupport::TestCase
   test "call with known parameters" do
