@@ -10,12 +10,10 @@
 
 <% if defined?(@weather) %>
     <ul>
-        <li>Temperature: <%= @weather.temperature %> ℃</li>
-        <li>Temperature Minimum: <%= @weather.temperature_min %> ℃</li>
-        <li>Temperature Maximum: <%= @weather.temperature_max %> ℃</li>
-        <li>Humidity: <%= @weather.humidity %>%</li>
-        <li>Pressure: <%= @weather.pressure %> millibars</li>
-        <li>Description: <%= @weather.description %></li>
+        <li>Temperature: <%= @weather[:temp] %> ℃</li>
+        <li>Temperature Minimum: <%= @weather[:temp_min] %> ℃</li>
+        <li>Temperature Maximum: <%= @weather[:temp_max] %> ℃</li>
+        <li>Description: <%= @weather[:description] %></li>
         <li>Is this result from the cache? <%= @weather_cache_exist %>
     </ul>
 <% end %>

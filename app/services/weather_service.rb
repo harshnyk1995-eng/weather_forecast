@@ -1,24 +1,23 @@
+require "net/http"
+require "json"
+
 class WeatherService
-  def self.call(latitude, longitude)
-    conn = Faraday.new("https://api.openweathermap.org") do |f|
-      f.request :json # encode req bodies as JSON and automatically set the Content-Type header
-      f.request :retry # retry transient failures
-      f.response :json # decode response bodies as JSON
-    end
-    response = conn.get("/data/2.5/weather", {
-      appid: Rails.application.credentials.openweather_api_key,
-      lat: latitude,
-      lon: longitude,
-      units: "metric"
-    })
-    body = response.body
-    weather = OpenStruct.new
-    weather.temperature = body["main"]["temp"]
-    weather.temperature_min = body["main"]["temp_min"]
-    weather.temperature_max = body["main"]["temp_max"]
-    weather.humidity = body["main"]["humidity"]
-    weather.pressure = body["main"]["pressure"]
-    weather.description = body["weather"][0]["description"]
-    weather
+  def self.call(lat, lon)
+    api_key = Rails.application.credentials.openweather_api_key
+    raise IOError, "Missing OpenWeather API key" unless api_key
+
+    url = URI("https://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lon}&appid=#{api_key}&units=metric")
+    response = Net::HTTP.get_response(url)
+    data = JSON.parse(response.body) rescue {}
+
+    main = data["main"] or raise IOError, "OpenWeather main section is missing"
+    weather = data["weather"]&.first or raise IOError, "OpenWeather weather section missing"
+
+    {
+      temp: main["temp"],
+      temp_max: main["temp_max"],
+      temp_min: main["temp_min"],
+      description: weather["description"]
+    }
   end
 end
