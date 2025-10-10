@@ -3,7 +3,6 @@ require "ostruct"
 
 class WeatherServiceTest < ActiveSupport::TestCase
   test "call with known parameters" do
-
     latitude = 37.331669
     longitude = -122.030098
     weather = WeatherService.call(latitude, longitude)
