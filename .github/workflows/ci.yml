@@ -29,4 +29,4 @@ jobs:
         run: bundle exec brakeman
 
       - name: Run tests
-        run: bundle exec test
+        run: bundle exec rails test
