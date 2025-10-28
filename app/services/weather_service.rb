@@ -3,7 +3,7 @@ require "json"
 
 class WeatherService
   def self.call(lat, lon)
-    api_key = Rails.application.credentials.dig(:openweather, :api_key)
+    api_key = Rails.application.config_for(:weather)["open_weather_api_key"]
     raise IOError, "Missing OpenWeather API key" unless api_key
 
     url = URI("https://api.openweathermap.org/data/2.5/weather?lat=#{lat}&lon=#{lon}&appid=#{api_key}&units=metric")
